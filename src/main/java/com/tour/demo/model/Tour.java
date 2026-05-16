@@ -6,8 +6,12 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.tour.demo.enums.TourStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -55,8 +59,8 @@ public class Tour {
     @Column(length = 2000)
     private String notes;
 
-    @NotNull
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TourStatus status;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -66,7 +70,6 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @NotNull
     private User user;
 
     @Column(nullable = false)
