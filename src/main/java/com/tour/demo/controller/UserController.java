@@ -25,9 +25,9 @@ public class UserController {
         return userService.registerUser(req);
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public UserResponseDTO login(@Valid @RequestBody LoginRequestDTO req){
         return userService.login(req);
-    }
+    }*/
 
 }

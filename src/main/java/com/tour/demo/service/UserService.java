@@ -2,6 +2,8 @@ package com.tour.demo.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,18 +53,16 @@ public class UserService {
 
     public UserResponseDTO login(LoginRequestDTO req){
 
-        authenticationManager.authenticate(
+        Authentication authentication= authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword())
         );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user=userRepository.findByUsername(req.getUsername())
             .orElseThrow(()-> new RuntimeException("Invalid username or password"));
 
-        /*boolean passwordMatches=passwordEncoder.matches(req.getPassword(), user.getPassword());
-
-        if(!passwordMatches){
-            throw new RuntimeException("Invalid username or password");
-        }*/
+        
 
         return UserResponseDTO.builder()
             .id(user.getId())
