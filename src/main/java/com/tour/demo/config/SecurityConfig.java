@@ -77,6 +77,28 @@ public class SecurityConfig {
                     response.setStatus(401);
                 })
 
+            ).logout(logout -> logout
+
+            .logoutUrl(
+                "/api/users/logout"
+            )
+
+            .logoutSuccessHandler(
+                (
+                    request,
+                    response,
+                    authentication
+                ) -> {
+
+                    response.setStatus(200);
+                }
+            )
+
+            .invalidateHttpSession(true)
+
+            .deleteCookies(
+                "JSESSIONID"
+            )
             );
 
         return http.build();

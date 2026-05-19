@@ -1,0 +1,162 @@
+.tour-card{
+    background:
+        rgba(255, 255, 255, 0.75);
+
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    margin-bottom: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.08);
+   
+}
+
+.table-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        60px
+        1.8fr
+        1fr
+        1fr
+        1fr
+        1fr
+        90px
+        90px
+        90px;
+
+    gap: 12px;
+
+    align-items: center;
+}
+
+.tour-main-row h3,
+.tour-main-row p{
+    margin: 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.tour-main-row h3{
+    color: #1e293b;
+}
+
+.tour-timestamps{
+    margin-top: 12px;
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+.tour-details{
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-btn,
+.delete-btn,
+.details-btn{
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.edit-btn{
+    background-color: #2563eb;;
+}
+
+.edit-btn:hover{
+    background-color: #1d4ed8;
+}
+
+.delete-btn {
+
+    background-color: #dc2626;
+}
+
+.delete-btn:hover {
+
+    background-color: #b91c1c;
+}
+
+.details-btn {
+
+    background-color: #64748b;
+}
+
+.details-btn:hover {
+
+    background-color: #475569;
+}
+
+.edit-btn,
+.delete-btn,
+.details-btn {
+
+    width: 100%;
+}
+
+.status-badge {
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    width: fit-content;
+
+    color: white;
+}
+
+.status-badge.planned {
+
+    background-color: #fcb12f;
+}
+
+.status-badge.confirmed {
+
+    background-color: #2563eb;
+}
+
+.status-badge.completed {
+
+    background-color: #16a34a;
+}
+
+.status-badge.canceled {
+
+    background-color: #dc2626;
+}
+
+.true{
+    color: green;
+}
+
+.false{
+    color: red;
+}
+
+

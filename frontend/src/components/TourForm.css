@@ -1,0 +1,166 @@
+.modal-overlay {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.tour-form-container {
+
+    position: relative;
+
+    width: 500px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background-color: white;
+
+    border-radius: 12px;
+
+    padding: 32px;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.tour-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.tour-form h2 {
+
+    margin-top: 0;
+
+    text-align: center;
+
+    color: #333;
+}
+
+.tour-form input,
+.tour-form textarea,
+.tour-form select {
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+.tour-form textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+.tour-form input:focus,
+.tour-form textarea:focus,
+.tour-form select:focus {
+
+    outline: none;
+
+    border-color: #2563eb;
+}
+
+.tour-form button {
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.tour-form button:hover {
+
+    background-color: #1d4ed8;
+}
+
+.close-btn {
+
+    position: absolute;
+
+    top: 12px;
+    right: 16px;
+
+    border: none;
+
+    background: none;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #555;
+}
+
+.close-btn:hover {
+
+    color: black;
+}
+
+.checkbox-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.checkbox-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 14px;
+
+    color: #334155;
+}
+
+.checkbox-label input {
+
+    width: 18px;
+
+    height: 18px;
+
+    cursor: pointer;
+}

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tour.demo.dtobject.TourRequestDTO;
+import com.tour.demo.dtobject.TourResponseDTO;
 import com.tour.demo.model.Tour;
 import com.tour.demo.model.User;
 import com.tour.demo.service.TourService;
@@ -27,12 +29,10 @@ public class TourController {
     private final TourService tourService;
 
     @PostMapping
-    public Tour createTour(@Valid @RequestBody Tour tour,Authentication authentication){
-        User user= (User) authentication.getPrincipal();
+    public TourResponseDTO createTour(@Valid @RequestBody TourRequestDTO tour,Authentication authentication){
+        Tour tour2=tourService.createTour(tour, authentication);
 
-        tour.setUser(user);
-        
-        return tourService.createTour(tour);
+        return tourService.tourMapperResponse(tour2);
     }
 
     @GetMapping
@@ -57,10 +57,10 @@ public class TourController {
 
 
     @PutMapping("/{id}")
-    public Tour updateTour(@PathVariable Long id,@Valid @RequestBody Tour tour){
+    public Tour updateTour(@PathVariable Long id,@Valid @RequestBody Tour tour,Authentication authentication){
         tour.setId(id);
 
-        return tourService.updateTour(tour);
+        return tourService.updateTour(tour,authentication);
     }
 
 }
