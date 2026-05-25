@@ -11,7 +11,7 @@ function Navbar(){
         try{
             await api.post("/users/logout");
 
-            Navigate("/");
+            Navigate("/login");
 
         }catch(err){
             console.error(err);
@@ -29,6 +29,18 @@ function Navbar(){
             <div className="navbar-right">
                 <Link to="/tours">
                     Home
+                </Link>
+
+                <Link to="/reminders">
+                    Reminders
+                </Link>
+
+                <Link to="/accommodations">
+                    Accommodations
+                </Link>
+
+                <Link to="/activities">
+                    Activities
                 </Link>
 
                 <button onClick={handleLogout}>

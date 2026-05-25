@@ -25,6 +25,7 @@ function TourCard ({tour,onDelete,onEdit}){
 
         return `${day}-${month}-${year} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     };
+    
 
     return(
         <div className="tour-card">
@@ -33,6 +34,8 @@ function TourCard ({tour,onDelete,onEdit}){
                 <p>{tour.id}</p>
 
                 <h3>{tour.name}</h3>
+
+                <p>{tour.tourTypeName}</p>
 
                 <p>
                     {formatDate(tour.startDate)}
@@ -73,29 +76,80 @@ function TourCard ({tour,onDelete,onEdit}){
             </div>
 
             {expanded && (
+                <div className="tour-details">
 
-                <div>
-                    <p>
-                        End Date: {" "} {formatDate(tour.endDate)}
-                    </p>
+                    {/* META SECTION */}
+                    <div className="tour-details-grid">
+                    
+                        <div className="detail-item">
+                            <span className="label">End Date</span>
+                            <span>{formatDate(tour.endDate)}</span>
+                        </div>
 
-                    <p>
-                        Hotel Announced: {" "} {tour.hotelAnnounced ? "yes" : "no"}
-                    </p>
+                        <div className="detail-item">
+                            <span className="label">Country</span>
+                            <span>{tour.country}</span>
+                        </div>
 
-                    <p>
-                        Activities Announced: {" "} {tour.activitiesAnnounced ? "yes" : "no"}
-                    </p>
+                        <div className="detail-item">
+                            <span className="label">Hotel</span>
+                            <span className={tour.hotelAnnounced ? "badge green" : "badge red"}>
+                                {tour.hotelAnnounced ? "Announced" : "Pending"}
+                            </span>
+                        </div>
 
-                    <p>
-                        Notes: {" "} {tour.notes || "None"}
-                    </p>
+                        <div className="detail-item">
+                            <span className="label">Activities</span>
+                            <span className={tour.activitiesAnnounced ? "badge green" : "badge red"}>
+                                {tour.activitiesAnnounced ? "Announced" : "Pending"}
+                            </span>
+                        </div>
 
-                    <p>
-                        Country: {" "} {tour.country}
-                    </p>
+                    </div>
+
+                    {/* NOTES */}
+                    <div className="tour-section">
+                        <h4>Notes</h4>
+                        <p className="notes-box">
+                            {tour.notes || "No notes added"}
+                        </p>
+                    </div>
+
+                    {/* ACCOMMODATION */}
+                    <div className="tour-section">
+                        <h4>Accommodation Schedule</h4>                       
+                        
+                        {tour.accommodationSchedules?.length > 0 ? (
+                            <div className="schedule-list">
+                                {tour.accommodationSchedules.map((s) => (
+                                    <div key={s.id} className="schedule-pill">
+                                        🏨 {s.accommodationName}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="empty">No accommodations assigned</p>
+                        )}
+                    </div>
+
+                    {/* ACTIVITIES */}
+                    <div className="tour-section">
+                        <h4>Activity Schedule</h4>
+
+                        {tour.activitySchedules?.length > 0 ? (
+                            <div className="schedule-list">
+                                {tour.activitySchedules.map((s) => (
+                                    <div key={s.id} className="schedule-pill">
+                                        🎯 {s.activityName}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="empty">No activities assigned</p>
+                        )}
+                    </div>
+
                 </div>
-                
             )}
 
         </div>

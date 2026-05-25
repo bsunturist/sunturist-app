@@ -1,0 +1,166 @@
+.schedule-editor {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+/* LEFT SIDE (schedule) */
+.schedule-side {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.schedule-side h3 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #111827;
+}
+
+/* RIGHT SIDE (available items) */
+.available-side {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.available-side h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #111827;
+}
+
+/* AVAILABLE ITEM */
+.available-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.available-item:hover {
+    background: #e5e7eb;
+}
+
+.available-item button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.available-item button:hover {
+    background: #1d4ed8;
+}
+
+/* COLUMN */
+.schedule-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 200px;
+}
+
+/* DRAG ITEM */
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 12px;
+    border-radius: 12px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+
+    cursor: grab;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.schedule-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.schedule-item:active {
+    cursor: grabbing;
+}
+
+.schedule-item strong {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.schedule-item div:last-child {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.schedule-item-content {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    width: 100%;
+}
+
+.remove-schedule-btn {
+
+    width: 28px;
+
+    height: 28px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background: #ef4444;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.remove-schedule-btn:hover {
+
+    background: #dc2626;
+
+    transform: scale(1.08);
+}

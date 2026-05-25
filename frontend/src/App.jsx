@@ -1,7 +1,10 @@
 import LoginPage from "./pages/LoginPage"
 import ToursPage from "./pages/ToursPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import RemindersPage from "./pages/RemindersPage";
+import AccommodationsPage from "./pages/AccommodationsPage";
+import ActivitiesPage from "./pages/ActivitiesPage";
+import {BrowserRouter,Routes,Route,Navigate} from "react-router-dom";
 
 function App() {
   
@@ -10,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<LoginPage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
 
         <Route path="/tours" element={
           <ProtectedRoute>
@@ -18,6 +21,35 @@ function App() {
           </ProtectedRoute>
           }
           />
+
+        <Route path="/reminders" element={
+          <ProtectedRoute>
+            <RemindersPage/>
+          </ProtectedRoute>
+        }/>
+
+         <Route
+                    path="/"
+                    element={<Navigate to="/tours" replace />}
+                />
+
+        <Route
+            path="/accommodations"
+            element={
+                <ProtectedRoute>
+                    <AccommodationsPage />
+                </ProtectedRoute>
+            }
+        />
+
+        <Route
+            path="/activities"
+            element={
+                <ProtectedRoute>
+                    <ActivitiesPage />
+                </ProtectedRoute>
+            }
+        />
 
       </Routes>
     </BrowserRouter>

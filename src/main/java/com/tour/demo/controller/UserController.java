@@ -1,11 +1,16 @@
 package com.tour.demo.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tour.demo.dtobject.LoginRequestDTO;
 import com.tour.demo.dtobject.UserRegisterRequestDTO;
@@ -22,16 +27,21 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+    @Value("${app.register.secret}")
+    private String registerSecret;
 
     @PostMapping("/register")
-    public UserResponseDTO registerUser(@Valid @RequestBody UserRegisterRequestDTO req){
+    public UserResponseDTO registerUser(@Valid @RequestBody UserRegisterRequestDTO req,@RequestHeader("X-REGISTER-SECRET") String secret){
+
+        if(!secret.equals(registerSecret)){
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "Invalid secret"
+            );
+        }
+
         return userService.registerUser(req);
     }
-
-    /*@PostMapping("/login")
-    public UserResponseDTO login(@Valid @RequestBody LoginRequestDTO req){
-        return userService.login(req);
-    }*/
 
     @GetMapping("/me")
     public UserResponseDTO me(

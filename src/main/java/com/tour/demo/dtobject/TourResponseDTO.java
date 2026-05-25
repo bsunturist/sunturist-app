@@ -2,8 +2,10 @@ package com.tour.demo.dtobject;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.tour.demo.enums.TourStatus;
+import com.tour.demo.enums.TourTypeEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,10 +31,6 @@ public class TourResponseDTO {
 
     private TourStatus status;
 
-    private LocalDate hotelReminderDate;
-
-    private LocalDate activityReminderDate;
-
     private Boolean hotelAnnounced;
 
     private Boolean activitiesAnnounced;
@@ -42,4 +40,25 @@ public class TourResponseDTO {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private Long tourTypeId;
+
+    private String tourTypeName;
+
+    private TourTypeEnum tourTypeCategory; 
+
+    private LocalDate
+    confirmationReminderDate;
+
+    private LocalDate
+    hotelReminderDate;
+
+    private LocalDate
+    activityReminderDate;
+
+    private List<AccommodationScheduleResponseDTO>
+    accommodationSchedules;
+
+    private List<ActivityScheduleResponseDTO>
+    activitySchedules;
 }

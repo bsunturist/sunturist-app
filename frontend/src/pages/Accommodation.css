@@ -1,0 +1,260 @@
+.page-container {
+
+    min-height: 100vh;
+
+    padding: 40px 200px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8fafc 0%,
+            #dbeafe 50%,
+            #e0f2fe 100%
+        );
+}
+
+.page-container h1 {
+
+    margin-bottom: 28px;
+
+    font-size: 36px;
+
+    color: #0f172a;
+
+    font-weight: 700;
+}
+
+/* FORM */
+
+.simple-form {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 16px;
+
+    padding: 24px;
+
+    margin-bottom: 32px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,0.7);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 24px rgba(0,0,0,0.08);
+
+    border:
+        1px solid rgba(255,255,255,0.4);
+}
+
+.simple-form input,
+.simple-form textarea {
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid #cbd5e1;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s;
+
+    background: white;
+}
+
+.simple-form input:focus,
+.simple-form textarea:focus {
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 4px rgba(59,130,246,0.15);
+}
+
+.simple-form textarea {
+
+    min-height: 90px;
+
+    resize: vertical;
+
+    grid-column: span 2;
+}
+
+.simple-form button {
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.simple-form button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 16px rgba(37,99,235,0.3);
+}
+
+/* CARDS */
+
+.list-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill,
+        minmax(280px,1fr));
+
+    gap: 22px;
+}
+
+.simple-card {
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.72);
+
+    backdrop-filter: blur(10px);
+
+    border:
+        1px solid rgba(255,255,255,0.4);
+
+    box-shadow:
+        0 8px 22px rgba(0,0,0,0.08);
+
+    transition: 0.2s;
+}
+
+.simple-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.12);
+}
+
+.simple-card h3 {
+
+    margin: 0 0 12px 0;
+
+    font-size: 22px;
+
+    color: #0f172a;
+}
+
+.simple-card p {
+
+    margin: 8px 0;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+.simple-card button {
+
+    margin-top: 18px;
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ef4444,
+            #dc2626
+        );
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.simple-card button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 16px rgba(239,68,68,0.28);
+}
+
+.card-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.edit-btn {
+
+    flex: 1;
+
+    background: #2563eb !important;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.edit-btn:hover {
+
+    background: #1d4ed8;
+    box-shadow:
+        0 6px 16px rgba(37, 6, 241, 0.28) !important;
+}
+
+.delete-btn {
+
+    flex: 1;
+}

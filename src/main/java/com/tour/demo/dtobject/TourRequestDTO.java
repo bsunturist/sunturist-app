@@ -1,6 +1,7 @@
 package com.tour.demo.dtobject;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.tour.demo.enums.TourStatus;
 
@@ -29,12 +30,6 @@ public class TourRequestDTO {
 
     private LocalDate endDate;
 
-    @NotNull
-    private LocalDate hotelReminderDate;
-
-    @NotNull
-    private LocalDate activityReminderDate;
-
     private String notes;
 
     @NotNull
@@ -43,4 +38,12 @@ public class TourRequestDTO {
     private Boolean hotelAnnounced;
 
     private Boolean activitiesAnnounced;
+
+    private Long tourTypeId;
+
+    private List<ActivityScheduleRequestDTO>
+    activitySchedules;
+
+    private List<AccommodationScheduleRequestDTO>
+    accommodationSchedules;
 }

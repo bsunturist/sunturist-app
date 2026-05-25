@@ -4,15 +4,30 @@ import TourForm from "../components/TourForm";
 import Navbar from "../components/Navbar";
 import { useState,useEffect } from "react";
 import "./ToursPage.css";
+import DashboardCards from "../components/DashboardCards";
 
 function ToursPage(){
 
-    const[tours,setTours]=useState([]);
+    const [tours,setTours]=useState([]);
     const [showForm, setShowForm]=useState(false);
     const [search,setSearch]=useState("");
-    const [filters,setFilters]=useState({status:"",startDate:"",country:"",announced:""});
-    const [appliedFilters,setAppliedFilters]=useState({status:"",startDate:"",country:"",announced:""});
+    const [filters,setFilters]=useState({status:"",startDate:"",country:"",announced:"",tourTypeId:""});
+    const [appliedFilters,setAppliedFilters]=useState({status:"",startDate:"",country:"",announced:"",tourTypeId:""});
     const [editingTour,setEditingTour]=useState(null);
+    const [stats,setStats]=useState(null);
+    const [tourTypes,setTourTypes]=useState([]);
+
+    const fetchStats=async ()=>{
+
+        try{
+            const response= await api.get("/tours/stats");
+            
+            setStats(response.data);
+        }catch(err){
+            console.error(err);
+            
+        }
+    };
 
     const handleUpdate= async (id,tourData)=>{
 
@@ -23,6 +38,7 @@ function ToursPage(){
             );
 
             await fetchTours();
+            await fetchStats();
 
             setEditingTour(null);
         }catch(err){
@@ -51,7 +67,8 @@ function ToursPage(){
             status:"",
             startDate:"",
             country:"",
-            announced:""
+            announced:"",
+            tourTypeId:""
         };
 
         setFilters(emptyFilters);
@@ -59,48 +76,31 @@ function ToursPage(){
         setAppliedFilters(emptyFilters);
     }
 
-    const filteredTours=tours.filter(
-        (tour)=>{
-
-            const matchesSearch=
-                tour.name.toLowerCase()
-                .includes(search.toLowerCase());
-
-            const matchesStatus=!appliedFilters.status || tour.status===appliedFilters.status;
-
-            const matchesStartDate=!appliedFilters.startDate || tour.startDate>=appliedFilters.startDate;
-
-            const matchesCountry=!appliedFilters.country || tour.country.toLowerCase().includes(appliedFilters.country.toLowerCase());
-
-            const matchesAnnounced=!appliedFilters.announced ||
-                (appliedFilters.announced==="true" ? tour.hotelAnnounced && tour.activitiesAnnounced
-                    : !tour.hotelAnnounced || !tour.activitiesAnnounced
-                );
-
-            return (
-                matchesSearch && matchesStatus
-                && matchesStartDate && matchesCountry && matchesAnnounced
-            );
-        }
-    );
-
     const fetchTours= async ()=>{
 
         try{
-            const response=await api.get("/tours");
-
+            const response = await api.get("/tours");
+                       
             setTours(response.data);
+
         }catch(err){
             console.error(err)
         }
     };
 
+    
+
     const handleCreate=async (tourData)=>{
+
+        console.log(tourData);
+        
 
         try{
             await api.post("/tours",tourData);
 
             await fetchTours();
+            await fetchStats();
+
         }catch(err) {console.error(err);}
     };
 
@@ -110,6 +110,7 @@ function ToursPage(){
             await api.delete(`/tours/${id}`);
 
             await fetchTours();
+            await fetchStats();
             
 
         }catch(err){
@@ -120,13 +121,45 @@ function ToursPage(){
 
     useEffect(() => {
 
+        const fetchTourTypes= async ()=>{
+
+                try{
+                    const response= await api.get("/tour-types");
+
+                    setTourTypes(response.data);
+                }catch(err){
+                    console.error(err);
+                    
+                }
+        };
+
         const loadData = async () => {
             await fetchTours();
         };
 
-    loadData();
+        const loadStats=async ()=>{
+            await fetchStats();
+        }
+
+        loadData();
+
+        loadStats();
+
+        fetchTourTypes();
 
     }, []);
+
+    const filteredTours=tours.filter( (tour)=>{ 
+        const matchesSearch= tour.name.toLowerCase() .includes(search.toLowerCase()); 
+        const matchesStatus=!appliedFilters.status || tour.status===appliedFilters.status; 
+        const matchesStartDate=!appliedFilters.startDate || tour.startDate>=appliedFilters.startDate; 
+        const matchesCountry=!appliedFilters.country || tour.country.toLowerCase().includes(appliedFilters.country.toLowerCase()); 
+        const matchesAnnounced=!appliedFilters.announced || (appliedFilters.announced==="true" 
+            ? tour.hotelAnnounced && tour.activitiesAnnounced : !tour.hotelAnnounced || !tour.activitiesAnnounced ); 
+        const matchesType=!appliedFilters.tourTypeId||tour.tourTypeId===Number(appliedFilters.tourTypeId);
+
+        return ( matchesSearch && matchesStatus && matchesStartDate && matchesCountry && matchesAnnounced && matchesType ); 
+    } );
 
     return (
 
@@ -134,6 +167,12 @@ function ToursPage(){
             <Navbar />
             
             <div className="tours-container">
+
+                <div className="dashboard-section">
+                    {stats && <DashboardCards stats={stats}/>}
+                </div>
+
+                
 
                 <div className="filters-container">
 
@@ -148,6 +187,20 @@ function ToursPage(){
                             <option value="CONFIRMED">Confirmed</option>
                             <option value="COMPLETED">Completed</option>
                             <option value="CANCELED">Canceled</option>
+                        </select>
+
+                        <select
+                            name="tourTypeId"
+                            value={filters.tourTypeId}
+                            onChange={handleFilterChange}
+                        >
+                            <option value="">All Tour Types</option>
+
+                            {tourTypes.map((type) => (
+                                <option key={type.id} value={type.id}>
+                                    {type.name} ({type.category})
+                                </option>
+                            ))}
                         </select>
 
                         <input type="text" name="country" placeholder="Country"
@@ -176,13 +229,13 @@ function ToursPage(){
 
                         </select>
 
-                        <button onClick={applyFilters}>
+                        <button onClick={applyFilters}> 
 
                             Apply Filters
 
                         </button>
 
-                        <button onClick={resetFilters}>
+                        <button className="reset-btn" onClick={resetFilters}>
 
                             Reset
 
@@ -212,7 +265,9 @@ function ToursPage(){
                     <div className="tour-headers-row table-grid">
                         <h3>ID</h3>
 
-                        <h3>Name</h3>
+                        <h3>Customer Name</h3>
+
+                        <h3>Tour Name</h3>
 
                         <h3>Start date</h3>
 
@@ -230,11 +285,14 @@ function ToursPage(){
                     </div>
                         
                 </div>
+                
+                
                 {filteredTours.map((tour)=>(
+                            
                     <TourCard key={tour.id} tour={tour} onDelete={handleDelete} onEdit={()=>setEditingTour(tour)}/>
-                ))}
-                
-                
+                    
+                )
+                )}              
 
             </div>
         </>

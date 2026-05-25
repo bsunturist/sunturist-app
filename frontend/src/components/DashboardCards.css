@@ -1,0 +1,97 @@
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 32px;
+}
+
+.dashboard-card {
+
+    min-height: 120px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    backdrop-filter: blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.25);
+
+    color: #0f172a;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.12);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.dashboard-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 14px 36px rgba(0,0,0,0.18);
+}
+
+.dashboard-card h3 {
+
+    margin: 0 0 12px 0;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #334155;
+
+    letter-spacing: 0.3px;
+}
+
+.dashboard-card p {
+
+    margin: 0;
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    color: #0f172a;
+}
+
+.planned {
+    border-top: 5px solid #3b82f6;
+}
+
+.confirmed {
+    border-top: 5px solid #22c55e;
+}
+
+.completed {
+    border-top: 5px solid #a855f7;
+}
+
+.canceled {
+    border-top: 5px solid #ef4444;
+}
+
+.urgent {
+    border-top: 5px solid #f59e0b;
+}

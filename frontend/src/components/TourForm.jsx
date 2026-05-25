@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./TourForm.css";
+import api from "../api/axios";
+import ScheduleEditor from "./schedule/ScheduleEditor";
 
 function TourForm({
     onCreate,
@@ -22,11 +24,8 @@ function TourForm({
             endDate:
                 editingTour?.endDate || "",
 
-            hotelReminderDate:
-                editingTour?.hotelReminderDate || "",
-
-            activityReminderDate:
-                editingTour?.activityReminderDate || "",
+            tourTypeId:
+                editingTour?.tourTypeId || "",
 
             status:
                 editingTour?.status || "PLANNED",
@@ -40,6 +39,56 @@ function TourForm({
             activitiesAnnounced:
                 editingTour?.activitiesAnnounced || false
         });
+
+    const [tourTypes,setTourTypes]=useState([]);
+
+    const [accommodationSchedule,setAccommodationSchedule]=useState(editingTour?.accommodationSchedules||[]);
+
+    const [activitySchedule,setActivitySchedule]=useState(editingTour?.activitySchedules||[]);
+
+    const [accommodations,setAccommodations]=useState([]);
+
+    const [activities,setActivities]=useState([]);
+
+    useEffect(()=>{
+        
+        const fetchTourTypes= async ()=>{
+
+                try{
+                    const response= await api.get("/tour-types");
+
+                    setTourTypes(response.data);
+                }catch(err){
+                    console.error(err);
+                    
+                }
+        };
+
+        const load = async ()=>{
+
+            const a =
+                await api.get(
+                    "/accommodations"
+                );
+
+            const act =
+                await api.get(
+                    "/activities"
+                );  
+
+            setAccommodations(a.data);
+
+            setActivities(act.data);
+        };
+
+        fetchTourTypes();
+
+        load();
+
+        
+    },[]);
+
+    
 
     const handleChange=(e)=>{
 
@@ -56,11 +105,66 @@ function TourForm({
     const handleSubmit = async (e) => {
 
         e.preventDefault();
+        
+        if(editingTour){  
+                     
+            const payload = {
 
-        if(editingTour){
-            await onUpdate(editingTour.id,formData);
+                ...formData,
+
+                tourTypeId:
+                    Number(formData.tourTypeId),
+            
+                
+                accommodationSchedules:
+                accommodationSchedule.map(
+                    (item,index) => ({
+                        id: item.id,
+                        accommodationId: item.accommodationId,
+                        dayOrder: index
+                    })
+                ),
+
+                activitySchedules:
+                activitySchedule.map(
+                    (item,index) => ({
+                        id:item.id,
+                        activityId: item.activityId,
+                        dayOrder: index
+                    })
+                )
+
+            };
+
+            await onUpdate(editingTour.id,payload);
         }else{
-            await onCreate(formData);
+            const payload = {
+
+                ...formData,
+
+                tourTypeId:
+                    Number(formData.tourTypeId),
+
+                accommodationSchedules:
+                accommodationSchedule.map(
+                    (item,index) => ({
+                        id:item.id,
+                        accommodationId: item.accommodationId,
+                        dayOrder: index
+                    })
+                ),
+
+                activitySchedules:
+                activitySchedule.map(
+                    (item,index) => ({
+                        id:item.id,
+                        activityId: item.activityId,
+                        dayOrder: index
+                    })
+                )
+            };
+            
+            await onCreate(payload);
         }
 
         onClose();
@@ -92,7 +196,7 @@ function TourForm({
                     <input
                         type="text"
                         name="name"
-                        placeholder="Tour name"
+                        placeholder="Customer name"
                         value={formData.name}
                         onChange={handleChange}
                     />
@@ -104,6 +208,34 @@ function TourForm({
                         value={formData.country}
                         onChange={handleChange}
                     />
+
+                    <select
+                        name="tourTypeId"
+                        value={formData.tourTypeId}
+                        onChange={handleChange}
+                    >
+
+                        <option value="">
+                            Select Tour Type
+                        </option>
+
+                        {tourTypes.map((type) => (
+
+                            <option
+                                key={type.id}
+                                value={type.id}
+                            >
+
+                                {type.name}
+                                {" "}
+                                (
+                                {type.category}
+                                )
+
+                            </option>
+                        ))}
+
+                    </select>
 
                     <label>Start Date</label>
 
@@ -120,32 +252,6 @@ function TourForm({
                         type="date"
                         name="endDate"
                         value={formData.endDate}
-                        onChange={handleChange}
-                    />
-
-                    <label>
-                        Hotel Reminder
-                    </label>
-
-                    <input
-                        type="date"
-                        name="hotelReminderDate"
-                        value={
-                            formData.hotelReminderDate
-                        }
-                        onChange={handleChange}
-                    />
-
-                    <label>
-                        Activity Reminder
-                    </label>
-
-                    <input
-                        type="date"
-                        name="activityReminderDate"
-                        value={
-                            formData.activityReminderDate
-                        }
                         onChange={handleChange}
                     />
 
@@ -178,6 +284,36 @@ function TourForm({
                         placeholder="Notes"
                         value={formData.notes}
                         onChange={handleChange}
+                    />
+
+                    <h3>
+                        Accommodation Schedule
+                    </h3>
+
+                    <ScheduleEditor
+                        type="accommodation"
+                        availableItems={accommodations}
+                        scheduledItems={
+                            accommodationSchedule
+                        }
+                        setScheduledItems={
+                            setAccommodationSchedule
+                        }
+                    />
+
+                    <h3>
+                        Activity Schedule
+                    </h3>
+
+                    <ScheduleEditor
+                        type="activity"
+                        availableItems={activities}
+                        scheduledItems={
+                            activitySchedule
+                        }
+                        setScheduledItems={
+                            setActivitySchedule
+                        }
                     />
 
                     <div className="checkbox-group">
