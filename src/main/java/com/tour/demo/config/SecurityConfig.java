@@ -30,7 +30,7 @@ public class SecurityConfig {
         CorsConfiguration configuration= new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-            List.of("http://localhost:5173")
+            List.of("https://sunturist-hd9cbbkh8-bsunturists-projects.vercel.app/")
             );
 
             configuration.setAllowedMethods(
