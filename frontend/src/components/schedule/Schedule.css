@@ -164,3 +164,15 @@
 
     transform: scale(1.08);
 }
+
+@media (max-width: 768px) {
+
+    .schedule-editor {
+        flex-direction: column;
+    }
+
+    .schedule-side,
+    .available-side {
+        width: 100%;
+    }
+}

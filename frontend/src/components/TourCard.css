@@ -161,12 +161,17 @@
 }
 
 .tour-details {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-6px);
+    transition: all 0.35s ease;
+}
+
+.tour-details.open {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .tour-details-grid {

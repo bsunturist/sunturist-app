@@ -119,6 +119,12 @@ function AccommodationsPage(){
 
     const handleDelete = async (id)=>{
 
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this accommodation?"
+        );
+
+    if (!confirmed) return;
+
         try{
 
             await api.delete(

@@ -132,3 +132,95 @@
 .close-btn:hover {
     color: #111827;
 }
+
+@media (max-width: 1280px) {
+
+    .tour-form-container {
+        width: min(95vw, 800px);
+        padding: 22px;
+    }
+
+    .tour-form {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .modal-overlay {
+        padding: 12px;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .tour-form-container {
+        width: 100%;
+        max-height: unset;
+
+        padding: 18px;
+        border-radius: 14px;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .tour-form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Force everything full width */
+    .tour-form input,
+    .tour-form textarea,
+    .tour-form select,
+    .tour-form button {
+        grid-column: 1 / -1;
+    }
+
+    .tour-form h2 {
+        font-size: 22px;
+        margin-bottom: 6px;
+    }
+
+    .tour-form h3 {
+        font-size: 14px;
+    }
+
+    .checkbox-group {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .checkbox-label {
+        width: 100%;
+    }
+
+    .close-btn {
+        top: 8px;
+        right: 10px;
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .tour-form-container {
+        padding: 14px;
+    }
+
+    .tour-form input,
+    .tour-form textarea,
+    .tour-form select {
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    .tour-form button {
+        padding: 11px;
+        font-size: 14px;
+    }
+
+    .tour-form h2 {
+        font-size: 20px;
+    }
+}

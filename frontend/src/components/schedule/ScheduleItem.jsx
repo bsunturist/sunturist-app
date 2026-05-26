@@ -36,50 +36,6 @@ function ScheduleItem({
 
     return (
 
-        /*<div
-            ref={setNodeRef}
-            style={style}
-            {...attributes}
-            {...listeners}
-            className="schedule-item"
-        >
-            <div className="schedule-item-content">
-
-                <div>
-
-                    <strong>
-                        Day {index + 1}
-                    </strong>
-
-                    <div className="schedule-item-name">
-
-                        {
-                            item.accommodationName ||
-                            item.activityName ||
-                            item.name
-                        }
-
-                    </div>
-
-                </div>
-
-                <button
-                    type="button"
-                    className="remove-schedule-btn"
-                    onClick={(e) => {
-
-                        e.stopPropagation();                     
-
-                        onRemove(index);
-                    }}
-                >
-                    ×
-                </button>
-
-            </div>
-
-        </div>*/
-
         <div
             ref={setNodeRef}
             style={style}
@@ -101,7 +57,7 @@ function ScheduleItem({
                     <div>
 
                         <strong>
-                            Day {index + 1}
+                             {item.defaultDays} Days 
                         </strong>
 
                         <div className="schedule-item-name">

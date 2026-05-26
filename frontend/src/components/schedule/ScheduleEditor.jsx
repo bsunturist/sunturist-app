@@ -80,14 +80,14 @@ function ScheduleEditor({
         const newItem =
             type === "accommodation"
             ? {
-                id: null,
+                id: crypto.randomUUID(),
                 accommodationId: item.id,
                 accommodationName: item.name,
                 defaultDays: item.defaultDays,
                 dayOrder: scheduledItems.length
             }
             : {
-                id: null,
+                id: crypto.randomUUID(),
                 activityId: item.id,
                 activityName: item.name,
                 defaultDays: item.defaultDays,

@@ -23,7 +23,32 @@ function TourCard ({tour,onDelete,onEdit}){
             date.getFullYear()
         ).slice(-2);
 
-        return `${day}-${month}-${year} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        return `${day}-${month}-${year}`;
+    };
+
+    const formatTimeStamp = (dateString) => {
+
+        if (!dateString) return "-";
+
+        const date = new Date(dateString);
+
+        const day = String(
+            date.getDate()
+        ).padStart(2, "0");
+
+        const month = String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+        const year = String(
+            date.getFullYear()
+        ).slice(-2);
+
+        const hour=String(date.getHours()).padStart(2,"0");
+        const min=String(date.getMinutes()).padStart(2,"0");
+        const sec=String(date.getSeconds()).padStart(2,"0");
+
+        return `${day}-${month}-${year} ${hour}:${min}:${sec}`;
     };
     
 
@@ -71,13 +96,11 @@ function TourCard ({tour,onDelete,onEdit}){
             </div>
 
             <div className="tour-timestamps">
-                <p>Created: {" "} {formatDate(tour.createdAt)}</p>
-                <p>Updated: {" "} {formatDate(tour.updatedAt)}</p>
+                <p>Created: {" "} {formatTimeStamp(tour.createdAt)}</p>
+                <p>Updated: {" "} {formatTimeStamp(tour.updatedAt)}</p>
             </div>
 
-            {expanded && (
-                <div className="tour-details">
-
+            <div className={`tour-details ${expanded ? "open": ""}`}>
                     {/* META SECTION */}
                     <div className="tour-details-grid">
                     
@@ -120,12 +143,40 @@ function TourCard ({tour,onDelete,onEdit}){
                         <h4>Accommodation Schedule</h4>                       
                         
                         {tour.accommodationSchedules?.length > 0 ? (
-                            <div className="schedule-list">
-                                {tour.accommodationSchedules.map((s) => (
-                                    <div key={s.id} className="schedule-pill">
-                                        🏨 {s.accommodationName}
-                                    </div>
-                                ))}
+                            <div className="schedule-list"> 
+                                                        
+                                {tour.accommodationSchedules.map((s, index) => {
+
+                                    const itemStart = new Date(tour.startDate);
+
+                                    for (let i = 0; i < index; i++) {
+                                        itemStart.setDate(
+                                            itemStart.getDate() +
+                                            tour.accommodationSchedules[i].defaultDays
+                                        );
+                                    }
+
+                                    const itemEnd = new Date(itemStart);
+
+                                    itemEnd.setDate(
+                                        itemEnd.getDate() + s.defaultDays
+                                    );
+
+                                    return (
+                                        <div
+                                            key={s.id}
+                                            className="schedule-pill"
+                                        >
+                                            {s.accommodationName}
+
+                                            <br />
+
+                                            {formatDate(itemStart)}
+                                            {" → "}
+                                            {formatDate(itemEnd)}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ) : (
                             <p className="empty">No accommodations assigned</p>
@@ -135,22 +186,49 @@ function TourCard ({tour,onDelete,onEdit}){
                     {/* ACTIVITIES */}
                     <div className="tour-section">
                         <h4>Activity Schedule</h4>
-
+                        
                         {tour.activitySchedules?.length > 0 ? (
-                            <div className="schedule-list">
-                                {tour.activitySchedules.map((s) => (
-                                    <div key={s.id} className="schedule-pill">
-                                        🎯 {s.activityName}
-                                    </div>
-                                ))}
+                            <div className="schedule-list"> 
+                                                        
+                                {tour.activitySchedules.map((s, index) => {
+
+                                    const itemStart = new Date(tour.startDate);
+
+                                    for (let i = 0; i < index; i++) {
+                                        itemStart.setDate(
+                                            itemStart.getDate() +
+                                            tour.activitySchedules[i].defaultDays
+                                        );
+                                    }
+
+                                    const itemEnd = new Date(itemStart);
+
+                                    itemEnd.setDate(
+                                        itemEnd.getDate() + s.defaultDays
+                                    );
+
+                                    return (
+                                        <div
+                                            key={s.id}
+                                            className="schedule-pill"
+                                        >
+                                            {s.activityName}
+
+                                            <br />
+
+                                            {formatDate(itemStart)}
+                                            {" → "}
+                                            {formatDate(itemEnd)}
+                                        </div>
+                                    );
+                                })}
                             </div>
                         ) : (
                             <p className="empty">No activities assigned</p>
                         )}
+                        
                     </div>
-
-                </div>
-            )}
+            </div>
 
         </div>
     );

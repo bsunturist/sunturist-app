@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.tour.demo.enums.TourStatus;
 import com.tour.demo.model.Tour;
 import com.tour.demo.repository.TourRepository;
 
@@ -26,11 +27,21 @@ public class ReminderService {
         LocalDate today=LocalDate.now();
 
         for(Tour tour:tours){
-            boolean needsHotel= !tour.getHotelAnnounced() && !tour.getHotelReminderDate().isAfter(today);
+            boolean needsHotel=!tour.getHotelAnnounced() && !tour.getHotelReminderDate().isAfter(today);
+
+            System.out.println();
+            System.out.println(tour.getName());
 
             boolean needsActivities= !tour.getActivitiesAnnounced() && !tour.getActivityReminderDate().isAfter(today);
 
-            boolean needsConfirmation= !tour.getStatus().equals("PLANNED") && !tour.getConfirmationReminderDate().isAfter(today);
+            boolean needsConfirmation= tour.getStatus().equals(TourStatus.PLANNED) && !tour.getConfirmationReminderDate().isAfter(today);
+
+            System.out.println();
+            System.out.println(needsConfirmation);
+
+            if(tour.getStatus().equals(TourStatus.CANCELED)){
+                continue;
+            }
 
             if(needsHotel||needsActivities||needsConfirmation){
                 sendReminder(tour);

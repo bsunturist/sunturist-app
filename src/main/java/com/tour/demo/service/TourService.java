@@ -74,6 +74,8 @@ public class TourService {
 
                 schedule.setTour(savedTour);
 
+                schedule.setDurationDays(accommodation.getDefaultDays());
+
                 schedule.setAccommodation(
                     accommodation
                 );
@@ -104,6 +106,8 @@ public class TourService {
                 schedule.setTour(savedTour);
 
                 schedule.setActivity(activity);
+
+                schedule.setDurationDays(activity.getDefaultDays());
 
                 schedule.setOrderIndex(
                     item.getDayOrder()
@@ -181,8 +185,6 @@ public class TourService {
             AccommodationScheduleRequestDTO s
             : dto.getAccommodationSchedules()
         ){
-            System.out.println();
-            System.out.println(dto.getAccommodationSchedules());
             
             Accommodation accommodation =
                 accommodationRepository
@@ -194,6 +196,7 @@ public class TourService {
                     .tour(existing)
                     .accommodation(accommodation)
                     .orderIndex(s.getDayOrder())
+                    .durationDays(accommodation.getDefaultDays())
                     .build();
 
             existing
@@ -217,6 +220,7 @@ public class TourService {
                     .tour(existing)
                     .activity(activity)
                     .orderIndex(s.getDayOrder())
+                    .durationDays(activity.getDefaultDays())
                     .build();
 
             existing
@@ -242,13 +246,13 @@ public class TourService {
             t.getHotelReminderDate()
             .isBefore(LocalDate.now().plusDays(1))
             &&
-            !t.getHotelAnnounced();
+            !t.getHotelAnnounced()&&!t.getStatus().equals(TourStatus.CANCELED);
 
             boolean activities =
                 t.getActivityReminderDate()
                 .isBefore(LocalDate.now().plusDays(1))
                 &&
-                !t.getActivitiesAnnounced();
+                !t.getActivitiesAnnounced()&&!t.getStatus().equals(TourStatus.CANCELED);
 
             return confirmation || hotel || activities;
         }).count();

@@ -35,6 +35,10 @@ function RemindersPage(){
 
         const needsActivities=activityDate<=today&&!tour.activitiesAnnounced;
 
+        if(tour.status==="CANCELED"){
+            return false;
+        }
+
         return(needsConfirmation||needsHotel||needsActivities);
 
     });
@@ -86,7 +90,7 @@ function RemindersPage(){
                     </div>
 
                     {sortedTours.map((tour)=>{
-                        const today=new Date();
+                        const today=new Date(); 
 
                         const confirmationDue=new Date(tour.confirmationReminderDate)<=today&&tour.status==="PLANNED";
 

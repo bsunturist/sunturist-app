@@ -106,6 +106,12 @@ function ToursPage(){
 
     const handleDelete=async (id)=>{
 
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this tour?"
+        );
+
+        if (!confirmed) return;
+
         try{
             await api.delete(`/tours/${id}`);
 
