@@ -58,4 +58,13 @@ public class UserController {
                 .build();
     }
 
+    @RestController
+    public class HealthController {
+
+        @GetMapping("/health")
+        public String health() {
+            return "OK";
+        }
+    }
+
 }
