@@ -29,6 +29,9 @@ function LoginPage(){
                 }
             });
 
+            console.log("login succesful");
+            
+
             await fetchUser();
 
             navigate("/tours");

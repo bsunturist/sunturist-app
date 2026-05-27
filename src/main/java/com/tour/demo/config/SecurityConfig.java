@@ -30,7 +30,7 @@ public class SecurityConfig {
         CorsConfiguration configuration= new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-            List.of("https://sunturist-app.vercel.app","https://sunturist-aqfnz1c9y-bsunturists-projects.vercel.app/","https://sunturist-6nh9bd113-bsunturists-projects.vercel.app/")
+            List.of("https://sunturist-app.vercel.app")
             );
 
             configuration.setAllowedMethods(
