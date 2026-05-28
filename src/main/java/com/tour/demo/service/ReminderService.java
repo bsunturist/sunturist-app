@@ -20,9 +20,10 @@ public class ReminderService {
 
     private final EmailService emailService;
 
-    @Scheduled(cron = "0 0 8 * * *",zone = "Europe/Zagreb")
+    //@Scheduled(cron = "0 0 8 * * *",zone = "Europe/Zagreb")
     @Scheduled(fixedRate=60000)
     public void checkReminders(){
+        System.out.println("TESTING REMINDER");
         List<Tour> tours=tourRepository.findAll();
 
         LocalDate today=LocalDate.now();
