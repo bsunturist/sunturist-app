@@ -23,7 +23,6 @@ public class ReminderService {
     //@Scheduled(cron = "0 0 8 * * *",zone = "Europe/Zagreb")
     @Scheduled(fixedRate=60000)
     public void checkReminders(){
-        System.out.println("TESTING REMINDER");
         List<Tour> tours=tourRepository.findAll();
 
         LocalDate today=LocalDate.now();
@@ -31,15 +30,10 @@ public class ReminderService {
         for(Tour tour:tours){
             boolean needsHotel=!tour.getHotelAnnounced() && !tour.getHotelReminderDate().isAfter(today);
 
-            System.out.println();
-            System.out.println(tour.getName());
 
             boolean needsActivities= !tour.getActivitiesAnnounced() && !tour.getActivityReminderDate().isAfter(today);
 
             boolean needsConfirmation= tour.getStatus().equals(TourStatus.PLANNED) && !tour.getConfirmationReminderDate().isAfter(today);
-
-            System.out.println();
-            System.out.println(needsConfirmation);
 
             if(tour.getStatus().equals(TourStatus.CANCELED)){
                 continue;
