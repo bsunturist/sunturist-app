@@ -40,6 +40,9 @@ function Navbar(){
                     <Link to="/reminders" onClick={() => setMenuOpen(false)}>Reminders</Link>
                     <Link to="/accommodations" onClick={() => setMenuOpen(false)}>Accommodations</Link>
                     <Link to="/activities" onClick={() => setMenuOpen(false)}>Activities</Link>
+                    <Link to="/izleti">
+                        Izleti
+                    </Link>
 
                     <button onClick={handleLogout}>
                         Logout

@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import RemindersPage from "./pages/RemindersPage";
 import AccommodationsPage from "./pages/AccommodationsPage";
 import ActivitiesPage from "./pages/ActivitiesPage";
+import IzletiPage from "./pages/IzletiPage";
 import {BrowserRouter,Routes,Route,Navigate} from "react-router-dom";
 
 function App() {
@@ -49,6 +50,16 @@ function App() {
                     <ActivitiesPage />
                 </ProtectedRoute>
             }
+        />
+
+        <Route
+            path="/izleti"
+            element={
+              <ProtectedRoute>
+                <IzletiPage />
+              </ProtectedRoute>
+              
+          }
         />
 
       </Routes>
