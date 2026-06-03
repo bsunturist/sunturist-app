@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react";
 import Navbar from "../components/Navbar";
 import IzletForm from "../components/IzletForm";
-import getIzleti from "../services/izletService";
 import api from "../api/axios";
 
 function IzletiPage(){
@@ -16,7 +15,7 @@ function IzletiPage(){
 
         try{
 
-            const response=await getIzleti();
+            const response=await api.get("/izleti");
 
             setIzleti(response.date);
         }catch(err){
