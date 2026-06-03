@@ -1,8 +1,15 @@
 package com.tour.demo.service;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 
@@ -10,17 +17,44 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    @Value("${BREVO_API_KEY}")
+    private String apiKey;
 
-    public void sendMail(String to,String subject,String text){
-        SimpleMailMessage message= new SimpleMailMessage();
+    private final RestTemplate restTemplate = new RestTemplate();
 
-        message.setFrom("sunturist.notifications@gmail.com");
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
+    public void sendMail(String to, String subject, String text){
 
-        mailSender.send(message);
+        String url = "https://api.brevo.com/v3/smtp/email";
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        headers.set("api-key", apiKey);
+
+        Map<String, Object> body = Map.of(
+            "sender", Map.of(
+                "name", "Sunturist",
+                "email", "sunturist.notifications@gmail.com"
+            ),
+            "to", List.of(
+                Map.of("email", to)
+            ),
+            "subject", subject,
+            "textContent", text
+        );
+
+        HttpEntity<Map<String, Object>> entity =
+            new HttpEntity<>(body, headers);
+
+        ResponseEntity<String> response =
+            restTemplate.postForEntity(
+                url,
+                entity,
+                String.class
+            );
+
+        System.out.println(response.getBody());
     }
 
 }
