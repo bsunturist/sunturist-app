@@ -12,21 +12,36 @@ function IzletiPage(){
 
     const [editingIzlet,setEditingIzlet]=useState(null);
 
+    const [showPast, setShowPast] = useState(false);
+
     const today = new Date();
 
     today.setHours(0,0,0,0);
 
-    const futureIzleti = izleti
-        .filter(
-            izlet =>
-                new Date(izlet.timeOfIzlet) >= today
-        )
-        .sort(
-            (a,b) =>
-                new Date(a.timeOfIzlet)
-                -
-                new Date(b.timeOfIzlet)
-        );
+    const displayedIzleti = izleti
+    .filter(izlet => {
+
+        const date =
+            new Date(
+                izlet.timeOfIzlet
+            );
+
+        return showPast
+            ? date < today
+            : date >= today;
+    })
+    .sort((a,b) => {
+
+        const first =
+            new Date(a.timeOfIzlet);
+
+        const second =
+            new Date(b.timeOfIzlet);
+
+        return showPast
+            ? second - first
+            : first - second;
+    });
 
     const fetchIzleti=async ()=>{
 
@@ -148,11 +163,22 @@ function IzletiPage(){
                     >
                         + Create Izlet
                     </button>
+
+                    <button
+                        className="toggle-btn"
+                        onClick={() =>
+                            setShowPast(prev => !prev)
+                        }
+                    >
+                        {showPast
+                            ? "Show Future Izleti"
+                            : "Show Past Izleti"}
+                    </button>
                 </div>
 
                 <div className="izleti-list">
 
-                    {futureIzleti.map((izlet) => (
+                    {displayedIzleti.map((izlet) => (
 
                         <div key={izlet.id} className="izlet-card">
 
