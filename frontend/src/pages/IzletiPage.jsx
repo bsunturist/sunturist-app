@@ -2,6 +2,7 @@ import { useEffect,useState } from "react";
 import Navbar from "../components/Navbar";
 import IzletForm from "../components/IzletForm";
 import api from "../api/axios";
+import "./IzletiPage.css";
 
 function IzletiPage(){
 

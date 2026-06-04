@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./IzletForm.css";
 
 function IzletForm({
     onSubmit,
