@@ -1,0 +1,73 @@
+.izlet-form {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.izlet-form h2 {
+
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    margin: 0 0 10px;
+}
+
+.izlet-form input,
+.izlet-form textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+.izlet-form textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+
+    grid-column: 1 / -1;
+}
+
+.izlet-form button {
+
+    grid-column: 1 / -1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+.izlet-form button:hover {
+
+    background: #1d4ed8;
+}
+
+@media (max-width: 768px){
+
+    .izlet-form{
+
+        grid-template-columns: 1fr;
+    }
+}

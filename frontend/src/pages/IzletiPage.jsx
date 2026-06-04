@@ -134,31 +134,95 @@ function IzletiPage(){
 
                 <h1>Izleti</h1>
 
-                {izleti.map((izlet)=>(
+                <div className="izleti-list">
 
-                    <div key={izlet.id}>
+                    {izleti.map((izlet) => (
 
-                        {izlet.name}
+                        <div key={izlet.id} className="izlet-card">
 
-                        <button
-                            onClick={() =>
-                                setEditingIzlet(izlet)
-                            }
-                        >
-                            Edit
-                        </button>
+                            <div className="izlet-header">
 
-                        <button
-                            onClick={() =>
-                                handleDelete(izlet.id)
-                            }
-                        >
-                            Delete
-                        </button>
+                                <h3>{izlet.name}</h3>
 
-                    </div>
+                                <div className="izlet-actions">
 
-                ))}
+                                    <button
+                                        className="edit-btn"
+                                        onClick={() =>
+                                            setEditingIzlet(izlet)
+                                        }
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() =>
+                                            handleDelete(izlet.id)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <div className="izlet-grid">
+
+                                <div>
+                                    <span>Guide:</span>
+                                    <p>{izlet.guide || "-"}</p>
+                                </div>
+
+                                <div>
+                                    <span>Second Guide:</span>
+                                    <p>{izlet.secondGuide || "-"}</p>
+                                </div>
+
+                                <div>
+                                    <span>Date & Time:</span>
+                                    <p>
+                                        {izlet.timeOfIzlet
+                                            ? new Date(
+                                                izlet.timeOfIzlet
+                                            ).toLocaleString("hr-HR")
+                                            : "-"}
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <span>Participants:</span>
+                                    <p>{izlet.numParticipants}</p>
+                                </div>
+
+                                <div>
+                                    <span>Transfer Participants:</span>
+                                    <p>{izlet.numTransferParticipants}</p>
+                                </div>
+
+                                <div>
+                                    <span>Vehicles:</span>
+                                    <p>{izlet.numVehicles}</p>
+                                </div>
+
+                                <div className="full-width">
+                                    <span>Drivers:</span>
+                                    <p>{izlet.drivers || "-"}</p>
+                                </div>
+
+                                <div className="full-width">
+                                    <span>Notes:</span>
+                                    <p>{izlet.notes || "-"}</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    ))}
+
+                </div>
 
             </div>
         </>
