@@ -100,8 +100,10 @@ function IzletiPage(){
         <>
             <Navbar />
 
-            {
-                (showForm || editingIzlet) && (
+            <div className="izleti-page">
+
+                <h1>Izleti</h1>
+                {(showForm || editingIzlet) && (
 
                     <IzletForm
 
@@ -121,20 +123,14 @@ function IzletiPage(){
                                 : handleCreate
                         }
                     />
-                )
-            }
+                )}
 
-            <button
-                className="open-form-btn"
-                onClick={() => setShowForm(true)}
-            >
-                + Create Izlet
-            </button>
-
-            <div className="izleti-page">
-
-                <h1>Izleti</h1>
-
+                <button
+                    className="open-form-btn"
+                    onClick={() => setShowForm(true)}
+                >
+                    + Create Izlet
+                </button>
                 <div className="izleti-list">
 
                     {izleti.map((izlet) => (
