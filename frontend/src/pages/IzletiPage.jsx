@@ -12,6 +12,22 @@ function IzletiPage(){
 
     const [editingIzlet,setEditingIzlet]=useState(null);
 
+    const today = new Date();
+
+    today.setHours(0,0,0,0);
+
+    const futureIzleti = izleti
+        .filter(
+            izlet =>
+                new Date(izlet.timeOfIzlet) >= today
+        )
+        .sort(
+            (a,b) =>
+                new Date(a.timeOfIzlet)
+                -
+                new Date(b.timeOfIzlet)
+        );
+
     const fetchIzleti=async ()=>{
 
         try{
@@ -125,15 +141,18 @@ function IzletiPage(){
                     />
                 )}
 
-                <button
-                    className="open-form-btn"
-                    onClick={() => setShowForm(true)}
-                >
-                    + Create Izlet
-                </button>
+                <div className="izleti-toolbar">
+                    <button
+                        className="open-form-btn"
+                        onClick={() => setShowForm(true)}
+                    >
+                        + Create Izlet
+                    </button>
+                </div>
+
                 <div className="izleti-list">
 
-                    {izleti.map((izlet) => (
+                    {futureIzleti.map((izlet) => (
 
                         <div key={izlet.id} className="izlet-card">
 
