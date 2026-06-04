@@ -17,7 +17,7 @@ function IzletiPage(){
 
             const response=await api.get("/izleti");
 
-            setIzleti(response.date);
+            setIzleti(response.data);
         }catch(err){
             console.error(err);
             
